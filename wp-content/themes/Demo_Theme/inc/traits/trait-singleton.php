@@ -1,9 +1,12 @@
 <?php
+/**
+ * 
+ * @package Demo_Theme
+ */
 
 namespace Demo_Theme_THEME\Inc\Traits;
 
-trait singleton
-{
+trait Singleton {
     protected function __construct() {}
 
     private function __clone() {}
@@ -22,7 +25,7 @@ trait singleton
         if (! isset($instance[$called_class])) {
             $instance[$called_class] = new $called_class();
 
-            do_action(sprintf('Demo_theme_%s_init', $called_class));
+            do_action(sprintf('Demo_Theme_theme_singleton_init_%s', $called_class));
         }
         return $instance[$called_class];
     }

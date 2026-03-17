@@ -55,6 +55,8 @@ add_theme_support('title-tag');
     <?php wp_head(); ?>
 </head>
 
+
+
 <body class="bg-warm-cream min-h-screen flex flex-col font-sans antialiased text-deep-brown">
     <!-- BEGIN: Navigation Header -->
     <header class="w-full bg-white border-b border-warm-peach/30 px-6 py-4">

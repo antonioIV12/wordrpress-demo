@@ -29,7 +29,7 @@ function autoloader( $resource = '' ) {
 
 	$path = explode(
 		'\\',
-		str_replace( '_', '-', ( $resource ) )
+		str_replace( '_', '-', strtolower( $resource ) )
 	);
 
 	/**
@@ -48,7 +48,7 @@ function autoloader( $resource = '' ) {
 		switch ( $path[1] ) {
 			case 'traits':
 				$directory = 'traits';
-				$file_name = sprintf( 'trait-%s', trim( ( $path[2] ) ) );
+				$file_name = sprintf( 'trait-%s', trim( strtolower( $path[2] ) ) );
 				break;
 
 			case 'widgets':
@@ -59,16 +59,16 @@ function autoloader( $resource = '' ) {
 				 */
 				if ( ! empty( $path[2] ) ) {
 					$directory = sprintf( 'classes/%s', $path[1] );
-					$file_name = sprintf( 'class-%s', trim( ( $path[2] ) ) );
+					$file_name = sprintf( 'class-%s', trim( strtolower( $path[2] ) ) );
 					break;
 				}
 			default:
 				$directory = 'classes';
-				$file_name = sprintf( 'class-%s', trim( ( $path[1] ) ) );
+				$file_name = sprintf( 'class-%s', trim( strtolower( $path[1] ) ) );
 				break;
 		}
 
-		$resource_path = sprintf( '%s/inc/%s/%s.php', untrailingslashit( get_template_directory() ), $directory, $file_name );
+		$resource_path = sprintf( '%s/inc/%s/%s.php', untrailingslashit( Demo_Theme_DIR_PATH ), $directory, $file_name );
 
 	}
 
