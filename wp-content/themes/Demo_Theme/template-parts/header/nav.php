@@ -6,7 +6,7 @@
  * @package Demo_Theme
  */
 
-$page = get_page_by_path('/pages/home/home.php'); 
+$page = get_page_by_path('/pages/home/home.php');
 $link = get_permalink($page);
 ?>
 

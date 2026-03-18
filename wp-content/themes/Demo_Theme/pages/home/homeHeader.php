@@ -7,6 +7,14 @@
  */
 
 add_theme_support('title-tag');
+
+$menu_class = \Demo_Theme_THEME\Inc\Menus::get_instance();
+$header_menu_id = $menu_class->get_menu_id('Demo_Theme-header-menu');
+$header_menus = wp_get_nav_menu_items($header_menu_id);
+
+// echo '<pre>';
+// print_r($locations);
+// wp_die();
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +33,7 @@ add_theme_support('title-tag');
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <!-- BEGIN: Tailwind Configuration -->
     <script>
-         tailwind.config = {
+        tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
@@ -60,14 +68,39 @@ add_theme_support('title-tag');
         <header class="sticky top-0 z-50 w-full border-b border-vibrant-orange/10 bg-white dark:bg-deep-brown/80 backdrop-blur-md">
             <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
                 <div class="flex items-center gap-8">
-                 <?php get_template_part('template-parts/header/logo'); ?>
-                    <nav class="hidden md:flex items-center gap-6">
-                        <a class="text-sm font-semibold text-vibrant-orange transition-colors" href="#">Dashboard</a>
-                        <a class="text-sm font-medium text-deep-brown/70 dark:text-warm-peach/80 hover:text-vibrant-orange transition-colors" href="#">Services</a>
-                        <a class="text-sm font-medium text-deep-brown/70 dark:text-warm-peach/80 hover:text-vibrant-orange transition-colors" href="#">Schedule</a>
-                        <a class="text-sm font-medium text-deep-brown/70 dark:text-warm-peach/80 hover:text-vibrant-orange transition-colors" href="#">Team</a>
+                    <?php get_template_part('template-parts/header/logo'); ?>
+                    <?php
+
+                    foreach ($header_menus as $menu_item) {
+                        if (! $menu_item->menu_item_parent) {
+                            $child_menu_items   = $menu_class->get_child_menu_items($header_menus, $menu_item->ID);
+                            $has_children = !empty($child_menu_items);
+                            // echo '<pre>';
+                            // print_r($child_menu_items);
+                            // wp_die();
+                        }
+                    }
+                    ?>
+                    <nav class="nav-item dropdown hidden md:flex items-center gap-6">
+                        <a class="nav-link dropdown-toggle text-sm font-semibold text-vibrant-orange transition-colors"
+                           href=" <?php echo esc_url($menu_item->url); ?>"
+                            id="navbarDropdown" aria-haspopup="true"
+                            role="button" data-toggle="dropdown"
+                            aria-expanded="false"
+                            title="<?php echo esc_attr($menu_item->title); ?>">
+                            <?php echo esc_html($menu_item->title); 
+                            
+                              // echo '<pre>';
+                            // print_r($menu_item->title);
+                            // wp_die();
+                            ?>
+
+                          
+                        </a>    
                     </nav>
                 </div>
+
+
                 <div class="flex items-center gap-4">
                     <label class="relative hidden sm:block">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-deep-brown/40 dark:text-warm-peach/40">
